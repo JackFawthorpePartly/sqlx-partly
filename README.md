@@ -196,6 +196,10 @@ be removed in the future.
     * May result in link errors if the SQLite version is too old. Version `3.20.0` or newer is recommended.
     * Can increase build time due to the use of bindgen.
 
+-   `sqlite-preupdate-hook`: enables SQLite's [preupdate hook](https://sqlite.org/c3ref/preupdate_count.html) API.
+    * Exposed as a separate feature because it's generally not enabled by default.
+    * Using this feature with `sqlite-unbundled` may cause linker failures if the system SQLite version does not support it.
+
 -   `any`: Add support for the `Any` database driver, which can proxy to a database driver at runtime.
 
 -   `derive`: Add support for the derive family macros, those are `FromRow`, `Type`, `Encode`, `Decode`.
@@ -204,7 +208,7 @@ be removed in the future.
 
 -   `migrate`: Add support for the migration management and `migrate!` macro, which allow compile-time embedded migrations.
 
--   `uuid`: Add support for UUID (in Postgres).
+-   `uuid`: Add support for UUID.
 
 -   `chrono`: Add support for date and time types from `chrono`.
 
@@ -215,6 +219,8 @@ be removed in the future.
 -   `bigdecimal`: Add support for `NUMERIC` using the `bigdecimal` crate.
 
 -   `rust_decimal`: Add support for `NUMERIC` using the `rust_decimal` crate.
+
+-   `ipnet`: Add support for `INET` and `CIDR` (in postgres) using the `ipnet` crate.
 
 -   `ipnetwork`: Add support for `INET` and `CIDR` (in postgres) using the `ipnetwork` crate.
 
