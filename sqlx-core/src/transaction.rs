@@ -1,6 +1,7 @@
 use std::borrow::Cow;
 use std::fmt::{self, Debug, Formatter};
 use std::ops::{Deref, DerefMut};
+use std::backtrace::Backtrace;
 
 use futures_core::future::BoxFuture;
 
@@ -252,7 +253,11 @@ where
             // what this does depends on the database but generally this means we queue a rollback
             // operation that will happen on the next asynchronous invocation of the underlying
             // connection (including if the connection is returned to a pool)
-
+            let bt = Backtrace::capture();
+            tracing::warn!(
+                backtrace = ?bt,
+                "Detected incorrect transaction rollback"
+            );
             DB::TransactionManager::start_rollback(&mut self.connection);
         }
     }
